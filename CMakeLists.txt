@@ -1,6 +1,21 @@
-# cmake_minimum_required(VERSION <specify CMake version here>)
-project(SimEngine)
+ cmake_minimum_required(VERSION 3.17.5 FATAL_ERROR)
 
-set(CMAKE_CXX_STANDARD 20)
+ set(CMAKE_CXX_STANDARD 11)
 
-add_executable(SimEngine src/main.cpp src/sysstems/draw/Draw.cpp src/systems/draw/Draw.h src/systems/input/input.cpp src/systems/input/input.h src/systems/physics/Physics.cpp src/systems/physics/Physics.h src/systems/sound/Sounds.cpp src/systems/sound/Sounds.h src/systems/utilities/utilities.cpp src/systems/utilities/utilities.h)
+ project(engine)
+
+ set(ENGINE_SOURCE
+         ${CMAKE_CURRENT_LIST_DIR}/src/engine/engine.h
+         ${CMAKE_CURRENT_LIST_DIR}/src/engine/engine.cpp)
+
+ add_library(engine STATIC ${ENGINE_SOURCE})
+
+ set(TESTING_SOURCE
+         src/testing/testing.cpp)
+
+ add_executable(program ${TESTING_SOURCE})
+
+ target_link_libraries(program
+         engine)
+
+ set(CMAKE_CXX_STANDARD 20)
